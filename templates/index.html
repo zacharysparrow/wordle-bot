@@ -1,19 +1,39 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-    <title>Wordle-Bot</title>
-</head>
-<body>
-    <h1>Enter hidden word and start word</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Hi, I'm the Wordle Bot! {% endblock %}</h1>
+    <h2>Enter hidden word and I'll try to guess it using the standard Wordle rules!</h2>
     <form method="POST">
-        <input type="text" name="hidden_word">
-        <input type="text" name="start_word">
+	<label for="fname">Your hidden word:</label><br>
+	<input type="text" name="hidden_word"><br><br>
+	<label for="lname">My starting word (optional):</label><br>
+	<input type="text" name="start_word"><br><br>
 	<input type="submit" value="Submit">
     </form>
+    <table>
     {% if output %}
-        <h2>{{ output }}</h2>
+	<br>
+    {% for word in output %}
+	{%- for lett in word[0] -%}
+       	   {% set color_info = word[1][loop.index0] %}
+	   {% set text_data = word[0] %}
+	   {% if color_info == '2' %}
+		{% set bg_color = '#009900' %}
+	   {% elif color_info == '1' %}
+		{% set bg_color = '#f4d03f' %}
+	   {% else %}
+		{% set bg_color = '#808080' %}
+	   {% endif %}
+	   <a style="background-color: {{ bg_color }}; font-size:36px; font-family:Noto Sans Mono"> {{ lett }} </a>
+	{%- endfor -%}
+	<br>
+    {% endfor %}
     {% endif %}
-</body>
-</html>
+    </table>
+    <br>
+    <br>
+    <h3> What is Wordle?</h3>
+    <body> Wordle is a popular word guessing game hosted by the New York Times. Typically, players have 6 tries to guess a 5 letter word. Each guess reveals more information about the hidden word -- letters in guessed words that are in the correct position are shown as green, letters in the hidden word but in the wrong position are yellow, and letters that arne't in the hidden word are grey. Play Wordle <a href="https://www.nytimes.com/games/wordle/index.html">here!</a> </body>
+{% endblock %}
+
+

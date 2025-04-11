@@ -19,8 +19,18 @@ def index():
         if request.method == 'POST':
             hidden_word = request.form['hidden_word']
             start_word = request.form['start_word']
+            if len(hidden_word) != 5:
+                return render_template('index.html', output=f'Please choose a 5-letter long hidden word!')
+            if len(start_word) != 5 and start_word != '':
+                return render_template('index.html', output=f'Please choose a 5-letter long starting word!')
+            if hidden_word not in dict5:
+                return render_template('index.html', output=f"Hmm... your hidden word isn't in my dictionary.")
+            if start_word not in dict5 and len(start_word) != 0:
+                return render_template('index.html', output=f"Hmm... your starting word isn't in my dictionary.")
+            if start_word == '':
+                start_word = 'reals'
             solution = wordle_solve(hidden_word, start_word, dict5)
-            return render_template('index.html', output=f'The solution: {solution}')
+            return render_template('index.html', output=solution)
     return render_template('index.html')
 
 if __name__ == '__main__':
