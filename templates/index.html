@@ -12,6 +12,9 @@
     </form>
     <table>
     {% if output %}
+    {% if output is string %}
+    	{{ output }}
+    {% else %}
 	<br>
     {% for word in output %}
 	{%- for lett in word[0] -%}
@@ -28,6 +31,7 @@
 	{%- endfor -%}
 	<br>
     {% endfor %}
+    {% endif %}
     {% endif %}
     </table>
     <br>
