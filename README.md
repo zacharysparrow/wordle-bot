@@ -25,3 +25,6 @@ The number of guesses for each word using this algorithm is recorded in data/wor
 
 ## License
 Distributed under the MIT license. See LICENSE.txt for more information.
+
+## Disclaimer
+This repository is not affiliated with the official Wordle site or the New York Times.
