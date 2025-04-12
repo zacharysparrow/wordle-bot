@@ -21,7 +21,7 @@ Each word is scored as a first guess in data/word_scores.csv (lower is better). 
 reals, aloes, tails, roles, and rates
 </details>
 
-The number of guesses for each word using this algorithm is recorded in data/word_depth.csv. Looks like every word is reached in 5 guesses with the optimal starting word!
+The number of guesses for each word using this algorithm is recorded in data/word_depth.csv (zero indexing). Looks like every word is reached in 6 guesses with the optimal starting word!
 
 ## License
 Distributed under the MIT license. See LICENSE.txt for more information.
