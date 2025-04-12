@@ -12,7 +12,7 @@ The stack:
 
 The app is deployed using <a href="https://www.pythonanywhere.com/">Python Anywhere</a>. To run locally, clone this repo, install flask, and run app.py.
 
-For a dictionary, I used the 5 letter words contained both in Wikipedia's list of 100,000 most common words and an English dictionary, resulting in 3103 possibilities. Some words are clearly missing (looking at you, "pesto"!), but this seems to be a nice size to balance computation time and fun.
+For a dictionary, I used the 5 letter words contained both in Wikipedia's list of 100,000 most common words and an English dictionary, resulting in 3103 possibilities. Some words are clearly missing (looking at you, "pesto"), but this seems to be a nice size to balance computation time and fun.
 
 ### Some Interesting Wordle Questions Answered
 Each word is scored as a first guess in data/word_scores.csv (lower is better). Some of the best starting words are...
