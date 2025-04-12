@@ -26,6 +26,12 @@ Each word is scored as a first guess in data/word_scores.csv (lower is better). 
 reals, aloes, tails, roles, and rates
 </details>
 
+Some of the worst starting words are...
+<details>
+<summary>Spoiler warning</summary>
+fuzzy, mummy, puppy, buggy, gummy
+</details>
+
 The number of guesses for each word using this algorithm is recorded in data/word_depth.csv (zero indexing). A histogram of this data is shown below. With the optimal starting word, every hidden word found in less than 6 guesses, requiring 3.78 guesses on average! The most common number of guesses needed is 4 by a considerable margin.
 
 Some of the more difficult hidden words include...
