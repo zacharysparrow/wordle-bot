@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Hi, I'm the Wordle Bot! {% endblock %}</h1>
+    {% block title %} <h1>Hi, I'm the Wordle Bot!</h1> {% endblock %}
     <h2>Enter hidden word and I'll try to guess it using the standard Wordle rules!</h2>
     <form method="POST">
 	<label for="fname">Your hidden word:</label><br>
@@ -38,6 +38,9 @@
     <br>
     <h3> What is Wordle?</h3>
     <body> Wordle is a popular word guessing game hosted by the New York Times. Typically, players have 6 tries to guess a 5 letter word. Each guess reveals more information about the hidden word -- letters in guessed words that are in the correct position are shown as green, letters in the hidden word but in the wrong position are yellow, and letters that aren't in the hidden word are grey. Play Wordle <a href="https://www.nytimes.com/games/wordle/index.html">here!</a> </body>
+    <br>
+    <br>
+    <body> This Wordle Bot is not affiliated with the official Wordle game or the New York Times. </body>
 {% endblock %}
 
 
