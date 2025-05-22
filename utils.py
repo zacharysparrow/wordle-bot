@@ -30,7 +30,7 @@ def calc_score(string, remain):
     class_info = count_occurrences(all_info)
     return max(class_info.items(), key=lambda x: x[1])[1]
 
-def best_guess(words, remain): #test function with faster calc_score
+def best_guess(words, remain):
     guess_scan = []
     if len(remain) == 1:
         return [remain[0], 1]

@@ -5,17 +5,37 @@ with open('assets/words.txt') as f:
     for line in f:
         dict5.append(line.strip().split(',')[0])
 
-### compute best word
-word_scores = [] 
-for w in dict5:
-    curr_score = calc_score(w,dict5)
-    word_scores.append([w,curr_score])
+class Node:
+    def __init__(self, data, word):
+        self.data = data
+        self.word = word
+        self.children = {}
 
-with open("data/word_scores.csv", 'w') as f:
-    for row in word_scores:
-        f.write(','.join(map(str, row)) + '\n')
+    def add_child(self, child):
+        self.children[child] = child
 
-### can wordle always be solved with an optimial strategy?
+def tree_to_dict(node):
+    if not node:
+        return None
+
+    tree_dict = {"data": node.data, "word": node.word}
+    if node.children:
+        tree_dict["children"] = {child.data: tree_to_dict(child) for child in node.children}
+    
+    return tree_dict
+
+### build decision tree given word
+def make_info_dict(dict5):
+    return_dict = {}
+    for i in dict5:
+        return_dict[i] = {}
+        for j in dict5:
+            return_dict[i][j] = get_info(i,j)
+    return return_dict
+
+print("starting precomputation")
+info_lookup = make_info_dict(dict5)
+
 def group_words(words):
     groups = {}
     for w in words:
@@ -25,22 +45,67 @@ def group_words(words):
             groups[w[1]] = [w[0]]
     return groups
 
-word_depth = {}
-def traverse_tree(start_group, word_group, level=0):
-    guess = best_guess(start_group, word_group)
-    if guess[0] in word_depth: 
-        prev_depth = word_depth[guess[0]]
-        word_depth[guess[0]] = min([prev_depth, level])
-    else:
-        word_depth[guess[0]] = level
-    word_info = scan_word(guess[0], word_group)
+def build_tree(guess, word_list, level=0):
+    word_info = [[w, info_lookup[guess.word][w]] for w in word_list] #scan_word(guess.word, word_list)
     if len(word_info) == 1:
+        new_node = Node('22222', None)
+        guess.add_child(new_node)
         return None
-    new_groups = group_words(word_info)
+    
+    new_groups = group_words(word_info) # a version without .append would be great
     for g in new_groups:
-        traverse_tree(start_group, new_groups[g], level=level+1)
+        best = best_guess(dict5, new_groups[g]) #this also uses get_info -- should replace with a version that uses info dict 
+        new_node = Node(g, best[0])
+        guess.add_child(new_node)
+        build_tree(new_node, new_groups[g], level=level+1)
+    
+print("starting tree")
+start_word = 'aloes'
+root = Node(None, start_word)
+build_tree(root, dict5)
+solution_tree = tree_to_dict(root)
+print(solution_tree['word'])
+print(solution_tree['children']['21000']['word'])
+print(solution_tree['children']['21000']['children']['00020']['word'])
+print(solution_tree['children']['21000']['children']['00020']['children']['20100']['word'])
+print(solution_tree['children']['21000']['children']['00020']['children']['20100']['children']['22222']['word'])
 
-traverse_tree(dict5, dict5)
-with open('data/word_depth.csv', 'w') as f:
-    [f.write('{0},{1}\n'.format(key, value)) for key, value in word_depth.items()]
-
+#### compute best word
+#word_scores = [] 
+#for w in dict5:
+#    curr_score = calc_score(w,dict5)
+#    word_scores.append([w,curr_score])
+#
+#with open("data/word_scores.csv", 'w') as f:
+#    for row in word_scores:
+#        f.write(','.join(map(str, row)) + '\n')
+#
+#### can wordle always be solved with an optimal strategy?
+#def group_words(words):
+#    groups = {}
+#    for w in words:
+#        if w[1] in groups:
+#            groups[w[1]].append(w[0])
+#        else:
+#            groups[w[1]] = [w[0]]
+#    return groups
+#
+#word_depth = {}
+#def traverse_tree(start_group, word_group, level=0):
+#    guess = best_guess(start_group, word_group)
+#    if guess[0] in word_depth: 
+#        prev_depth = word_depth[guess[0]]
+#        word_depth[guess[0]] = min([prev_depth, level])
+#    else:
+#        word_depth[guess[0]] = level
+#    word_info = scan_word(guess[0], word_group)
+#    if len(word_info) == 1:
+#        return None
+#    new_groups = group_words(word_info)
+#    for g in new_groups:
+#        traverse_tree(start_group, new_groups[g], level=level+1)
+#
+#traverse_tree(dict5, dict5)
+#with open('data/word_depth.csv', 'w') as f:
+#    [f.write('{0},{1}\n'.format(key, value)) for key, value in word_depth.items()]
+#
