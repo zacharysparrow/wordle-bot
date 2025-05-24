@@ -22,7 +22,7 @@ def index():
                 return render_template('index.html', output=f"Hmm... your starting word isn't in my dictionary. I only know Wikipedia's 100,000 most common words.")
             if start_word == '':
                 start_word = 'reals'
-            solution = wordle_solve(hidden_word, start_word, dict5)
+            solution = wordle_solve(hidden_word, start_word)
             return render_template('index.html', output=solution)
     return render_template('index.html')
 
