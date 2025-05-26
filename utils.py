@@ -53,7 +53,7 @@ def wordle_solve(key, start):
     curr_tree = wordle_tree['children']
     guess_num = 1
     search_path = [curr_guess]
-    while curr_guess != key and guess_num <= 6:
+    while curr_guess != key:
         curr_info = get_info(curr_guess, key)
         curr_guess = curr_tree[curr_info]['word']
         curr_tree = curr_tree[curr_info]['children']
