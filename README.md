@@ -26,7 +26,3 @@ Distributed under the MIT license. See LICENSE.txt for more information.
 
 ## Disclaimer
 This repository is not affiliated with the official Wordle site or the New York Times.
-
-## TODO
-- update app to use tree lookup
-- update app to let user input instead of give word

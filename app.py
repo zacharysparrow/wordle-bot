@@ -14,14 +14,8 @@ def index():
             start_word = request.form['start_word'].lower().strip()
             if len(hidden_word) != 5:
                 return render_template('index.html', output=f'Please choose a 5-letter long hidden word!')
-            if len(start_word) != 5 and start_word != '':
-                return render_template('index.html', output=f'Please choose a 5-letter long starting word!')
             if hidden_word not in dict5:
                 return render_template('index.html', output=f"Hmm... your hidden word isn't in my dictionary. I only know Wikipedia's 100,000 most common words.")
-            if start_word not in dict5 and len(start_word) != 0:
-                return render_template('index.html', output=f"Hmm... your starting word isn't in my dictionary. I only know Wikipedia's 100,000 most common words.")
-            if start_word == '':
-                start_word = 'reals'
             solution = wordle_solve(hidden_word, start_word)
             return render_template('index.html', output=solution)
     return render_template('index.html')
