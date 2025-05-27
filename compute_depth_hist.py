@@ -10,21 +10,6 @@ with open('assets/words.txt') as f:
     for line in f:
         dict5.append(line.strip().split(',')[0])
 
-## solution length histogram
-#soln_hists = []
-#for solve_word in dict5[0:3]:
-#    all_solns = []
-#    for word in dict5:
-#        soln = wordle_solve(word, solve_word)
-#        all_solns.append(soln)
-#    
-#    depths = []
-#    for soln in all_solns:
-#        depths.append(len(soln))
-#    
-#    soln_counts = dict(sorted(count_occurrences(depths).items()))
-#    soln_hists.append(soln_counts)
-
 def compute_depth(solve_word):
     all_solns = []
     for word in dict5:
